@@ -13,15 +13,13 @@
         android:theme="@style/Theme.FireStoreApplication"
         tools:targetApi="31">
         <activity
-            android:theme="@style/Theme.FireStoreApplication.NoActionBar"
             android:name=".ChatActivity"
             android:label="@string/app_name_details"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.FireStoreApplication">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
