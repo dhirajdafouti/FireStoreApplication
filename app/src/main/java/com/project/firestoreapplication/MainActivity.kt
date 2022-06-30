@@ -2,6 +2,7 @@ package com.project.firestoreapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,9 +11,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.project.firestoreapplication.Constant.CRAZY
 import com.project.firestoreapplication.Constant.FUNNY
+import com.project.firestoreapplication.Constant.NUM_COMMENTS
+import com.project.firestoreapplication.Constant.NUM_LIKES
 import com.project.firestoreapplication.Constant.POPULAR
 import com.project.firestoreapplication.Constant.SERIOUS
+import com.project.firestoreapplication.Constant.THOUGHT_TXT
+import com.project.firestoreapplication.Constant.TIMESTAMP
+import com.project.firestoreapplication.Constant.USERNAME
 import com.project.firestoreapplication.databinding.ActivityMainBinding
+import com.squareup.okhttp.internal.DiskLruCache
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +29,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var thoughtsAdapter: ThoughtsAdapter
     val thoughts = arrayListOf<Thought>()
     val thoughtsCollectionRef = FirebaseFirestore.getInstance().collection(Constant.THOUGHTS_REF)
-    lateinit var thoughtsListener: ListenerRegistration
+
+    //  lateinit var thoughtsListener: ListenerRegistration
     lateinit var mainButtonFunny: ToggleButton
     lateinit var mainButtonSerious: ToggleButton
     lateinit var mainButtonCrazy: ToggleButton
@@ -48,11 +57,31 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         clickOnButtons()
         thoughtsCollectionRef.get().addOnSuccessListener { successSnapSort ->
+            for (document in successSnapSort.documents) {
+                val data = document.data
+                val userName = data?.get(USERNAME) as String
+                val timeStamp = data.get(TIMESTAMP) as Date
+                val thoughtText = data.get(THOUGHT_TXT) as String
+                val numLikes = data.get(NUM_LIKES) as String
+                val numComments = data.get(NUM_COMMENTS) as String
+                val documentId = document.id
+                val thought = Thought(userName,
+                    timeStamp,
+                    thoughtText,
+                    numLikes.toInt(),
+                    numComments.toInt(),
+                    documentId)
+                thoughts.add(thought)
+            }
+            thoughtsAdapter.notifyDataSetChanged()
+
 
         }.addOnFailureListener { failureSnapSort ->
+            Toast.makeText(this,
+                "Error Received!!" + failureSnapSort.localizedMessage,
+                Toast.LENGTH_SHORT).show()
 
-
-            }
+        }
 
     }
 
@@ -66,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             mainButtonPopular.isChecked = false
             mainButtonCrazy.isChecked = false
             selectedCategory = FUNNY
-            thoughtsListener.remove()
+            // thoughtsListener.remove()
         }
 
         mainButtonCrazy.setOnClickListener {
@@ -78,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             mainButtonSerious.isChecked = false
             mainButtonPopular.isChecked = false
             selectedCategory = CRAZY
-            thoughtsListener.remove()
+            //thoughtsListener.remove()
         }
 
         mainButtonPopular.setOnClickListener {
@@ -91,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             mainButtonSerious.isChecked = false
             mainButtonCrazy.isChecked = false
             selectedCategory = POPULAR
-            thoughtsListener.remove()
+            // thoughtsListener.remove()
 
         }
         mainButtonSerious.setOnClickListener {
@@ -103,7 +132,7 @@ class MainActivity : AppCompatActivity() {
             mainButtonCrazy.isChecked = false
             mainButtonPopular.isChecked = false
             selectedCategory = SERIOUS
-            thoughtsListener.remove()
+            //thoughtsListener.remove()
         }
 
     }
