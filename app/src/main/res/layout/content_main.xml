@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp"
+    tools:showIn="@layout/activity_main">
+
+    <ToggleButton
+        android:id="@+id/mainFunnyBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/category_toggle"
+        android:checked="true"
+        android:textColor="@android:color/background_light"
+        android:textOff="funny"
+        android:textOn="funny"
+        app:layout_constraintEnd_toStartOf="@+id/mainSeriousBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/mainSeriousBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/category_toggle"
+        android:textColor="@android:color/background_light"
+        android:textOff="serious"
+        android:textOn="serious"
+        app:layout_constraintBottom_toBottomOf="@+id/mainFunnyBtn"
+        app:layout_constraintEnd_toStartOf="@+id/mainCrazyBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mainFunnyBtn"
+        app:layout_constraintTop_toTopOf="@+id/mainFunnyBtn" />
+
+    <ToggleButton
+        android:id="@+id/mainCrazyBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/category_toggle"
+        android:textColor="@android:color/background_light"
+        android:textOff="crazy"
+        android:textOn="crazy"
+        app:layout_constraintBottom_toBottomOf="@+id/mainSeriousBtn"
+        app:layout_constraintEnd_toStartOf="@+id/mainPopularBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mainSeriousBtn"
+        app:layout_constraintTop_toTopOf="@+id/mainSeriousBtn" />
+
+    <ToggleButton
+        android:id="@+id/mainPopularBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/category_toggle"
+        android:textColor="@android:color/background_light"
+        android:textOff="popular"
+        android:textOn="popular"
+        app:layout_constraintBottom_toBottomOf="@+id/mainCrazyBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mainCrazyBtn"
+        app:layout_constraintTop_toTopOf="@+id/mainCrazyBtn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/thoughtListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainFunnyBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

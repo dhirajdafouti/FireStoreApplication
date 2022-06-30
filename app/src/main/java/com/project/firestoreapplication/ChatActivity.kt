@@ -8,6 +8,16 @@ import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.project.firestoreapplication.Constant.CATEGORY
+import com.project.firestoreapplication.Constant.CRAZY
+import com.project.firestoreapplication.Constant.FUNNY
+import com.project.firestoreapplication.Constant.NUM_COMMENTS
+import com.project.firestoreapplication.Constant.NUM_LIKES
+import com.project.firestoreapplication.Constant.SERIOUS
+import com.project.firestoreapplication.Constant.THOUGHTS_REF
+import com.project.firestoreapplication.Constant.THOUGHT_TXT
+import com.project.firestoreapplication.Constant.TIMESTAMP
+import com.project.firestoreapplication.Constant.USERNAME
 
 class ChatActivity : AppCompatActivity() {
 
@@ -64,12 +74,10 @@ class ChatActivity : AppCompatActivity() {
 
         clickPostBtn.setOnClickListener {
             val data = HashMap<String, Any>()
-            data.put("category", selectedCategory)
-            data.put("comments", 0)
-            data.put("likes", 0)
-            data.put("thoughtText", addthoughttext.text.toString())
-            data.put("username", addUserNameText.text.toString())
-            data.put("time", FieldValue.serverTimestamp())
+            data.put(CATEGORY, selectedCategory)
+            data.put(THOUGHT_TXT, addthoughttext.text.toString())
+            data.put(USERNAME, addUserNameText.text.toString())
+            data.put(TIMESTAMP, FieldValue.serverTimestamp())
             firebaseFirestore.collection(THOUGHTS_REF).add(data).addOnCompleteListener { success ->
                 Toast.makeText(this, "The Add to FireBase Success $success", Toast.LENGTH_LONG)
                     .show()
@@ -82,17 +90,5 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val THOUGHTS_REF = "thoughts"
-        const val FUNNY = "funny"
-        const val SERIOUS = "serious"
-        const val CRAZY = "crazy"
-        const val POPULAR = "popular"
-        const val CATEGORY = "category"
-        const val NUM_COMMENTS = "numComments"
-        const val NUM_LIKES = "numLikes"
-        const val THOUGHT_TXT = "thoughtTxt"
-        const val TIMESTAMP = "timestamp"
-        const val USERNAME = "username"
-    }
+
 }
