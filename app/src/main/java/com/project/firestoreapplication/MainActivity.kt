@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.project.firestoreapplication.Constant.CRAZY
 import com.project.firestoreapplication.Constant.FUNNY
 import com.project.firestoreapplication.Constant.NUM_COMMENTS
@@ -19,7 +20,7 @@ import com.project.firestoreapplication.Constant.THOUGHT_TXT
 import com.project.firestoreapplication.Constant.TIMESTAMP
 import com.project.firestoreapplication.Constant.USERNAME
 import com.project.firestoreapplication.databinding.ActivityMainBinding
-import com.squareup.okhttp.internal.DiskLruCache
+import com.project.firestoreapplication.databinding.ContentMainBinding
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,22 +37,24 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainButtonCrazy: ToggleButton
     lateinit var mainButtonPopular: ToggleButton
     lateinit var recyclerView: RecyclerView
+    lateinit var toolBar: Toolbar
+    lateinit var content: ContentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        content = binding.content
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
         binding.fab.setOnClickListener { view ->
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
         }
         thoughtsAdapter = ThoughtsAdapter(thoughts)
-        mainButtonCrazy = findViewById(R.id.mainCrazyBtn)
-        mainButtonFunny = findViewById(R.id.addFunnyBtn)
-        mainButtonPopular = findViewById(R.id.mainPopularBtn)
-        mainButtonSerious = findViewById(R.id.mainSeriousBtn)
-        recyclerView = findViewById(R.id.thoughtListView)
+        mainButtonCrazy = content.mainCrazyBtn
+        mainButtonFunny = content.mainFunnyBtn
+        mainButtonPopular = content.mainPopularBtn
+        mainButtonSerious = content.mainSeriousBtn
+        recyclerView = content.thoughtListView
         recyclerView.adapter = thoughtsAdapter
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -59,14 +62,15 @@ class MainActivity : AppCompatActivity() {
         thoughtsCollectionRef.get().addOnSuccessListener { successSnapSort ->
             for (document in successSnapSort.documents) {
                 val data = document.data
+
                 val userName = data?.get(USERNAME) as String
-                val timeStamp = data.get(TIMESTAMP) as Date
-                val thoughtText = data.get(THOUGHT_TXT) as String
-                val numLikes = data.get(NUM_LIKES) as String
-                val numComments = data.get(NUM_COMMENTS) as String
+                val timeStamp = data.get(TIMESTAMP) as Timestamp
+                val thoughtText = data?.get(THOUGHT_TXT) as String
+                val numLikes = data?.get(NUM_LIKES) as Number
+                val numComments = data?.get(NUM_COMMENTS) as Number
                 val documentId = document.id
                 val thought = Thought(userName,
-                    timeStamp,
+                    timeStamp.toDate(),
                     thoughtText,
                     numLikes.toInt(),
                     numComments.toInt(),

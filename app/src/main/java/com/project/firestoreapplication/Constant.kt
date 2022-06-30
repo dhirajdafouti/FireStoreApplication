@@ -9,7 +9,7 @@ object Constant {
     const val CATEGORY = "category"
     const val NUM_COMMENTS = "comments"
     const val NUM_LIKES = "likes"
-    const val THOUGHT_TXT = "thoughtTxt"
+    const val THOUGHT_TXT = "thoughtText"
     const val TIMESTAMP = "time"
     const val USERNAME = "username"
 }

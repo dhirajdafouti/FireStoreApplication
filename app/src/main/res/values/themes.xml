@@ -24,7 +24,7 @@
     <style name="Theme.FireStoreApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--Designing the application theme-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--  Customize your theme here.  -->
         <item name="android:windowDisablePreview">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
