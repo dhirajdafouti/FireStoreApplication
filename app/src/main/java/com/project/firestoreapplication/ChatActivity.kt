@@ -8,13 +8,11 @@ import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class ChatActivity : AppCompatActivity() {
 
     var selectedCategory = FUNNY
-    lateinit var firebase: FirebaseFirestore
+    lateinit var firebaseFirestore:FirebaseFirestore
     lateinit var addCrazyButton: ToggleButton
     lateinit var addFunnyButton: ToggleButton
     lateinit var addSeriousButton: ToggleButton
@@ -30,7 +28,7 @@ class ChatActivity : AppCompatActivity() {
         clickPostBtn = findViewById(R.id.addPostBtn)
         addthoughttext = findViewById(R.id.addThoughtTxt)
         addUserNameText = findViewById(R.id.addUsernameTxt)
-        firebase = Firebase.firestore
+        firebaseFirestore=FirebaseFirestore.getInstance()
         handleClickListener()
     }
 
@@ -72,7 +70,7 @@ class ChatActivity : AppCompatActivity() {
             data.put("thoughtText", addthoughttext.text.toString())
             data.put("username", addUserNameText.text.toString())
             data.put("time", FieldValue.serverTimestamp())
-            firebase.collection(THOUGHTS_REF).add(data).addOnCompleteListener { success ->
+            firebaseFirestore.collection(THOUGHTS_REF).add(data).addOnCompleteListener { success ->
                 Toast.makeText(this, "The Add to FireBase Success $success", Toast.LENGTH_LONG)
                     .show()
 

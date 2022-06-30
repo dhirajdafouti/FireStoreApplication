@@ -4,6 +4,7 @@
     package="com.project.firestoreapplication">
 
     <application
+        android:name=".FireStoreApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,12 +15,12 @@
         tools:targetApi="31">
         <activity
             android:name=".ChatActivity"
-            android:label="@string/app_name_details"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/app_name_details" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
