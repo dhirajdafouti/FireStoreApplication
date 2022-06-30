@@ -2,6 +2,7 @@ package com.project.firestoreapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.project.firestoreapplication.Constant.CRAZY
 import com.project.firestoreapplication.Constant.FUNNY
 import com.project.firestoreapplication.Constant.NUM_COMMENTS
@@ -21,7 +24,6 @@ import com.project.firestoreapplication.Constant.TIMESTAMP
 import com.project.firestoreapplication.Constant.USERNAME
 import com.project.firestoreapplication.databinding.ActivityMainBinding
 import com.project.firestoreapplication.databinding.ContentMainBinding
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     val thoughts = arrayListOf<Thought>()
     val thoughtsCollectionRef = FirebaseFirestore.getInstance().collection(Constant.THOUGHTS_REF)
 
-    //  lateinit var thoughtsListener: ListenerRegistration
+    lateinit var thoughtsListener: ListenerRegistration
     lateinit var mainButtonFunny: ToggleButton
     lateinit var mainButtonSerious: ToggleButton
     lateinit var mainButtonCrazy: ToggleButton
@@ -62,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         thoughtsCollectionRef.get().addOnSuccessListener { successSnapSort ->
             for (document in successSnapSort.documents) {
                 val data = document.data
-
                 val userName = data?.get(USERNAME) as String
                 val timeStamp = data.get(TIMESTAMP) as Timestamp
                 val thoughtText = data?.get(THOUGHT_TXT) as String
@@ -87,6 +88,44 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setListener()
+    }
+
+    private fun setListener() {
+        thoughtsListener = thoughtsCollectionRef.orderBy(TIMESTAMP,Query.Direction.ASCENDING)
+            .addSnapshotListener(this) {
+                    snapshot,
+                    exception,
+                ->
+                if (exception != null) {
+                    Log.e("Exception", exception.toString())
+                }
+                if (snapshot != null) {
+                    for (document in snapshot.documents) {
+                        thoughts.clear()
+                        val data = document.data
+                        val userName = data?.get(USERNAME) as String
+                        val timeStamp = data.get(TIMESTAMP) as Timestamp
+                        val thoughtText = data?.get(THOUGHT_TXT) as String
+                        val numLikes = data?.get(NUM_LIKES) as Number
+                        val numComments = data?.get(NUM_COMMENTS) as Number
+                        val documentId = document.id
+                        val thought = Thought(userName,
+                            timeStamp.toDate(),
+                            thoughtText,
+                            numLikes.toInt(),
+                            numComments.toInt(),
+                            documentId)
+                        thoughts.add(thought)
+                    }
+                    thoughtsAdapter.notifyDataSetChanged()
+
+                }
+            }
     }
 
     private fun clickOnButtons() {
