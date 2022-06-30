@@ -2,6 +2,12 @@
 
 This application is the basic application for the authentication and firebase store basic.
 
+The application will demonstrate
+1-Firebase Cloud Store.
+2-Firebase Authentication.
+3-Firebase Security Rule.
+4-App Check for accessing the firestore by authencicated user.
+
 Below is the application Signing.
 https://www.youtube.com/watch?v=akDXw9n3gFY 
 
