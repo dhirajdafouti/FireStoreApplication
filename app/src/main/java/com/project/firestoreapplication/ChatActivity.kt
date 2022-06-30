@@ -22,7 +22,7 @@ import com.project.firestoreapplication.Constant.USERNAME
 class ChatActivity : AppCompatActivity() {
 
     var selectedCategory = FUNNY
-    lateinit var firebaseFirestore:FirebaseFirestore
+    lateinit var firebaseFirestore: FirebaseFirestore
     lateinit var addCrazyButton: ToggleButton
     lateinit var addFunnyButton: ToggleButton
     lateinit var addSeriousButton: ToggleButton
@@ -38,7 +38,7 @@ class ChatActivity : AppCompatActivity() {
         clickPostBtn = findViewById(R.id.addPostBtn)
         addthoughttext = findViewById(R.id.addThoughtTxt)
         addUserNameText = findViewById(R.id.addUsernameTxt)
-        firebaseFirestore=FirebaseFirestore.getInstance()
+        firebaseFirestore = FirebaseFirestore.getInstance()
         handleClickListener()
     }
 
@@ -75,12 +75,15 @@ class ChatActivity : AppCompatActivity() {
         clickPostBtn.setOnClickListener {
             val data = HashMap<String, Any>()
             data.put(CATEGORY, selectedCategory)
+            data.put(NUM_COMMENTS, 0)
+            data.put(NUM_LIKES, 0)
             data.put(THOUGHT_TXT, addthoughttext.text.toString())
             data.put(USERNAME, addUserNameText.text.toString())
             data.put(TIMESTAMP, FieldValue.serverTimestamp())
             firebaseFirestore.collection(THOUGHTS_REF).add(data).addOnCompleteListener { success ->
                 Toast.makeText(this, "The Add to FireBase Success $success", Toast.LENGTH_LONG)
                     .show()
+                finish()
 
             }.addOnFailureListener { failure ->
                 Toast.makeText(this, "The Add to FireBase Failure $failure", Toast.LENGTH_LONG)

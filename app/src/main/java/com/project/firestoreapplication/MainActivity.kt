@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         binding.fab.setOnClickListener { view ->
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
@@ -46,6 +47,12 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         clickOnButtons()
+        thoughtsCollectionRef.get().addOnSuccessListener { successSnapSort ->
+
+        }.addOnFailureListener { failureSnapSort ->
+
+
+            }
 
     }
 
