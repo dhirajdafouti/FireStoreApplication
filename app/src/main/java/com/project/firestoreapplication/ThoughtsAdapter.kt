@@ -24,6 +24,7 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<T
         val thoughtTxt = itemView?.findViewById<TextView>(R.id.listViewThoughtTxt)
         val numLikes = itemView?.findViewById<TextView>(R.id.listVIewNumLikesLbl)
         val likesImage = itemView?.findViewById<ImageView>(R.id.listViewLikesImage)
+        val unlikeImage =itemView?.findViewById<ImageView>(R.id.unlikeImage)
 
         fun bindThought(thought: Thought) {
 
@@ -38,6 +39,10 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>) : RecyclerView.Adapter<T
             likesImage?.setOnClickListener {
                 FirebaseFirestore.getInstance().collection(THOUGHTS_REF).document(thought.documentId)
                         .update(NUM_LIKES, thought.numLikes + 1)
+            }
+            unlikeImage?.setOnClickListener {
+                FirebaseFirestore.getInstance().collection(THOUGHTS_REF).document(thought.documentId).
+                        update(NUM_LIKES,thought.numLikes-1)
             }
 
         }

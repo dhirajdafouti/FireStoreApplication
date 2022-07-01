@@ -53,9 +53,9 @@
         android:text="99"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/listViewLikesImage"
-        app:layout_constraintStart_toEndOf="@+id/listViewLikesImage"
-        app:layout_constraintTop_toTopOf="@+id/listViewLikesImage" />
+        app:layout_constraintBottom_toBottomOf="@+id/unlikeImage"
+        app:layout_constraintStart_toEndOf="@+id/unlikeImage"
+        app:layout_constraintTop_toTopOf="@+id/unlikeImage" />
 
     <ImageView
         android:id="@+id/listViewLikesImage"
@@ -66,4 +66,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewThoughtTxt"
         app:srcCompat="@drawable/star_icon_filled" />
+
+    <ImageView
+        android:id="@+id/unlikeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/listViewLikesImage"
+        app:layout_constraintStart_toEndOf="@+id/listViewLikesImage"
+        app:layout_constraintTop_toTopOf="@+id/listViewLikesImage">
+
+    </ImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>
