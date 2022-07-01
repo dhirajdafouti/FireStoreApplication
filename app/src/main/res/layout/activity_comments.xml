@@ -32,13 +32,13 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:onClick="addCommentClicked"
         android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/enterCommentTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_send" />
+        app:srcCompat="@android:drawable/ic_menu_send"
+        tools:ignore="UseAppTint" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
