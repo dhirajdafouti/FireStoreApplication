@@ -15,6 +15,10 @@ https://www.youtube.com/watch?v=g1fByAsqQRk
 
 https://docs.flutter.dev/deployment/android
 
+Cloud Firestore documentation
+1-https://firebase.google.com/docs/firestore/query-data/index-overview?hl=en&authuser=0
+2-https://github.com/firebase/friendlyeats-android/blob/master/app/src/main/java/com/google/firebase/example/fireeats/MainActivity.java
+3-https://firebase.google.com/codelabs/firestore-android#0
 
 Generate the SH1 KEY
 
