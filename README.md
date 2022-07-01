@@ -8,18 +8,18 @@ The application will demonstrate
 3-Firebase Security Rule.
 4-App Check for accessing the firestore by authencicated user.
 
-Below is the application Signing.
-https://www.youtube.com/watch?v=akDXw9n3gFY 
-
-https://www.youtube.com/watch?v=g1fByAsqQRk
-
-https://docs.flutter.dev/deployment/android
 
 Cloud Firestore documentation
 1-https://firebase.google.com/docs/firestore/query-data/index-overview?hl=en&authuser=0
 2-https://github.com/firebase/friendlyeats-android/blob/master/app/src/main/java/com/google/firebase/example/fireeats/MainActivity.java
 3-https://firebase.google.com/codelabs/firestore-android#0
 
+Below is the application Signing.
+https://www.youtube.com/watch?v=akDXw9n3gFY 
+
+https://www.youtube.com/watch?v=g1fByAsqQRk
+
+https://docs.flutter.dev/deployment/android
 Generate the SH1 KEY
 
 Microsoft Windows [Version 10.0.22000.739]
