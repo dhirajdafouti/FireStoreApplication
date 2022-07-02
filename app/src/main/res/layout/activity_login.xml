@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginPasswordTxt" />
 
     <Button
-        android:id="@+id/loginCreateBtn"
+        android:id="@+id/createLogin"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
