@@ -61,8 +61,7 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/category_checked"
-        android:onClick="createCreateClicked"
+        android:background="@drawable/category_unchecked"
         android:text="Create User"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,12 +70,11 @@
         app:layout_constraintTop_toBottomOf="@+id/createUsernameTxt" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/cancel_button"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        android:onClick="createCancelClicked"
         android:text="Cancel"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
