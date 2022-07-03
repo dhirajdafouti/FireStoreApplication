@@ -18,12 +18,9 @@ class LoginActivity : AppCompatActivity() {
     lateinit var loginUserEmail: EditText
     lateinit var password: EditText
     lateinit var auth: FirebaseAuth
-    lateinit var toolbar: androidx.appcompat.widget.Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        toolbar = findViewById(R.id.toolbar)
         setContentView(R.layout.activity_login)
-        setSupportActionBar(toolbar)
         createButton = findViewById(R.id.createLogin)
         loginButton = findViewById(R.id.loginLoginBtn)
         loginUserEmail = findViewById(R.id.loginEmailTxt)
