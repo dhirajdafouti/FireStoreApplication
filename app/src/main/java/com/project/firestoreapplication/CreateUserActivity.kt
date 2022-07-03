@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.firestoreapplication.Constant.EMAIL_ID
 import com.project.firestoreapplication.Constant.PHONE_NUMBER
+import com.project.firestoreapplication.Constant.USER
 import com.project.firestoreapplication.Constant.USERNAME
 import com.project.firestoreapplication.Constant.USER_CREATED_TIME_STAMP
 
@@ -37,8 +38,47 @@ class CreateUserActivity : AppCompatActivity() {
             cancelUser()
         }
         createUserButton.setOnClickListener {
-            createUserButtonAction()
+            createUser()
         }
+    }
+
+    private fun createUser() {
+        val email = userEmail.text.toString()
+        val password = passWord.text.toString()
+        val username = userName.text.toString()
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener { result ->
+
+                val changeRequest = UserProfileChangeRequest.Builder()
+                    .setDisplayName(username)
+                    .build()
+                result.user?.updateProfile(changeRequest)
+                    ?.addOnFailureListener { exception ->
+                        Log.e("Exception:",
+                            "Could not update display name: ${exception.localizedMessage}")
+                    }
+
+                val data = HashMap<String, Any>()
+                data.put(USERNAME, username)
+                data.put(PHONE_NUMBER, "76766727665")
+                data.put(USER_CREATED_TIME_STAMP, FieldValue.serverTimestamp())
+
+                FirebaseFirestore.getInstance().collection(USER).document(result.user!!.uid)
+                    .set(data)
+                    .addOnSuccessListener {
+                        finish()
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e("Exception:",
+                            "Could not add user document: ${exception.localizedMessage}")
+                    }
+
+
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Exception:", "Could not create user: ${exception.localizedMessage}")
+            }
     }
 
     private fun createUserButtonAction() {

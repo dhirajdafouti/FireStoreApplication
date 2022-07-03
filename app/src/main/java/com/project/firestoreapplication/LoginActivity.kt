@@ -2,9 +2,12 @@ package com.project.firestoreapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -15,9 +18,12 @@ class LoginActivity : AppCompatActivity() {
     lateinit var loginUserEmail: EditText
     lateinit var password: EditText
     lateinit var auth: FirebaseAuth
+    lateinit var toolbar: androidx.appcompat.widget.Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        toolbar = findViewById(R.id.toolbar)
         setContentView(R.layout.activity_login)
+        setSupportActionBar(toolbar)
         createButton = findViewById(R.id.createLogin)
         loginButton = findViewById(R.id.loginLoginBtn)
         loginUserEmail = findViewById(R.id.loginEmailTxt)
@@ -27,9 +33,10 @@ class LoginActivity : AppCompatActivity() {
             if (!loginUserEmail.toString().isEmpty() && !password.toString().isEmpty()) {
                 loginAction()
             }
-            createButton.setOnClickListener {
-                createUserAction()
-            }
+
+        }
+        createButton.setOnClickListener {
+            createUserAction()
         }
 
     }
@@ -53,4 +60,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

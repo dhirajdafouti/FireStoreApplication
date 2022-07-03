@@ -3,6 +3,8 @@ package com.project.firestoreapplication
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
@@ -42,12 +45,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var toolBar: Toolbar
     lateinit var content: ContentMainBinding
-
+    lateinit var toolbar: androidx.appcompat.widget.Toolbar
+    lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         content = binding.content
+        toolbar = findViewById(R.id.toolbar)
         setContentView(binding.root)
+        setSupportActionBar(toolbar)
+        auth = FirebaseAuth.getInstance()
         binding.fab.setOnClickListener { view ->
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
@@ -73,6 +80,36 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val menuItem = menu?.getItem(0)
+        if (auth.currentUser == null) {
+            menuItem?.title = "login"
+        } else {
+            menuItem?.title = "Logout"
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.login_Menu) {
+            if (auth.currentUser == null) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            if (item.itemId == R.id.logout_Menu) {
+                auth.signOut()
+            }
+            return true
+        }
+        return false
     }
 
     private fun parseData(successSnapSort: QuerySnapshot) {
