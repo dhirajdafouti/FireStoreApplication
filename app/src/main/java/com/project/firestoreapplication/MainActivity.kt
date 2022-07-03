@@ -45,15 +45,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var toolBar: Toolbar
     lateinit var content: ContentMainBinding
-    lateinit var toolbar: androidx.appcompat.widget.Toolbar
+    lateinit var toolbar: Toolbar
     lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         content = binding.content
-        toolbar = findViewById(R.id.toolbar)
         setContentView(binding.root)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         auth = FirebaseAuth.getInstance()
         binding.fab.setOnClickListener { view ->
             val intent = Intent(this, ChatActivity::class.java)

@@ -43,9 +43,9 @@ class CreateUserActivity : AppCompatActivity() {
     }
 
     private fun createUser() {
-        val email = userEmail.text.toString()
-        val password = passWord.text.toString()
-        val username = userName.text.toString()
+        val email = userEmail.text.toString().trim()
+        val password = passWord.text.toString().trim()
+        val username = userName.text.toString().trim()
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { result ->

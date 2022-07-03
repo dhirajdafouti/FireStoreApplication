@@ -2,12 +2,9 @@ package com.project.firestoreapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -39,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginAction() {
-        auth.signInWithEmailAndPassword(loginUserEmail.toString(), password.toString())
+        auth.signInWithEmailAndPassword(loginUserEmail.toString().trim(), password.toString().trim())
             .addOnSuccessListener { result ->
                 Toast.makeText(this, "Login SuccessFull", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener { result ->
