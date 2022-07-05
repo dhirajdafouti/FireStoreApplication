@@ -13,6 +13,7 @@ class BasicActivity : AppCompatActivity() {
     //https://www.youtube.com/watch?v=FuAz-ahdk0E
     //https://www.youtube.com/c/StevdzaSan
     //https://www.youtube.com/watch?v=bs_xs9-RJvc&feature=youtu.be
+    //https://github.com/niharika2810/quickstart-android
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
