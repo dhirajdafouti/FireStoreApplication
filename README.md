@@ -26,7 +26,14 @@ Generate the SH1 KEY
 
 5-https://github.com/firebase/friendlyeats-android
 
+New Collection
+https://youtube.com/playlist?list=PLam6bY5NszYOhXkY7jOS4EQAKcQwkXrp4
 
+https://youtu.be/bs_xs9-RJvc
+
+https://youtu.be/-Gvpf8tXpbc
+
+https://youtube.com/playlist?list=PLirRGafa75rQOi3so_ngAHqDmq_Djifwu
 
 
 Microsoft Windows [Version 10.0.22000.739]
