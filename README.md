@@ -15,12 +15,19 @@ Cloud Firestore documentation
 3-https://firebase.google.com/codelabs/firestore-android#0
 
 Below is the application Signing.
-https://www.youtube.com/watch?v=akDXw9n3gFY 
+1-https://www.youtube.com/watch?v=akDXw9n3gFY 
 
-https://www.youtube.com/watch?v=g1fByAsqQRk
+2-https://www.youtube.com/watch?v=g1fByAsqQRk
 
-https://docs.flutter.dev/deployment/android
+3-https://docs.flutter.dev/deployment/android
 Generate the SH1 KEY
+
+4-https://www.linkedin.com/learning/firebase-essential-training
+
+5-https://github.com/firebase/friendlyeats-android
+
+
+
 
 Microsoft Windows [Version 10.0.22000.739]
 (c) Microsoft Corporation. All rights reserved.
@@ -45,3 +52,5 @@ Version: 1
 
 Warning:
 The certificate uses the SHA1withRSA signature algorithm which is considered a security risk. This algorithm will be disabled in a future update.
+
+l
