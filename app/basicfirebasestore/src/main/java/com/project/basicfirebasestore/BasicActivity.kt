@@ -9,6 +9,10 @@ class BasicActivity : AppCompatActivity() {
     //https://youtube.com/playlist?list=PLam6bY5NszYOhXkY7jOS4EQAKcQwkXrp4
     //https://youtu.be/-Gvpf8tXpbc
     //https://youtube.com/playlist?list=PLirRGafa75rQOi3so_ngAHqDmq_Djifwu
+    //very important
+    //https://www.youtube.com/watch?v=FuAz-ahdk0E
+    //https://www.youtube.com/c/StevdzaSan
+    //https://www.youtube.com/watch?v=bs_xs9-RJvc&feature=youtu.be
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
