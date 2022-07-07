@@ -14,7 +14,8 @@ class BasicActivity : AppCompatActivity() {
     //https://www.youtube.com/c/StevdzaSan
     //https://www.youtube.com/watch?v=bs_xs9-RJvc&feature=youtu.be
     //https://github.com/niharika2810/quickstart-android
-
+    //https://youtube.com/playlist?list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ-->Best Tutorial
+    //https://www.youtube.com/watch?v=HQgJvHXsNOQ&list=PLrnPJCHvNZuDrSqu-dKdDi3Q6nM-VUyxD&index=14
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basic)
