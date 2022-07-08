@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FireStoreApplication">
         <activity
+            android:name=".NewActivity"
+            android:exported="false" />
+        <activity
             android:name=".BasicActivity"
             android:exported="true">
             <intent-filter>
