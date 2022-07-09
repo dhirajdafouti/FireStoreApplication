@@ -1,7 +1,21 @@
 package com.project.realdb
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ContentResolver
+import android.net.Uri
 import android.os.Bundle
+import android.webkit.MimeTypeMap
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.project.realdb.model.Upload
+import com.squareup.picasso.Picasso
 
 class RealDbActivity : AppCompatActivity() {
 
@@ -33,8 +47,99 @@ class RealDbActivity : AppCompatActivity() {
     //https://www.youtube.com/watch?v=eGWu0-0TWFI(best)
     //https://www.youtube.com/watch?v=pTAueJvG77k&list=PLgCYzUzKIBE_cyEsXgIcwC3P8ipvlSFd_(best)
     //https://www.youtube.com/watch?v=eGWu0-0TWFI(best)
+
+    private lateinit var mButtonChooseImage: Button
+    private lateinit var mButtonUpload: Button
+    private lateinit var mTextViewShosUploads: TextView
+    private lateinit var mEdittextFileName: EditText
+    private lateinit var mImageView: ImageView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var mStorage: StorageReference
+    private lateinit var mDatabaseRef: DatabaseReference
+    private lateinit var imageUri: Uri
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_real_db)
+        mButtonChooseImage = findViewById(R.id.button_choose_image)
+        mButtonUpload = findViewById(R.id.button_upload)
+        mButtonUpload.isEnabled = false
+        mTextViewShosUploads = findViewById(R.id.text_view_show_uploads)
+        mEdittextFileName = findViewById(R.id.edit_text_file_name)
+        mImageView = findViewById(R.id.image_view)
+        progressBar = findViewById(R.id.progress_bar)
+        mStorage = FirebaseStorage.getInstance().getReference("Uploads")
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Uploads")
+        auth = Firebase.auth
+        mButtonChooseImage.setOnClickListener {
+            reload()
+        }
+
+        mButtonUpload.setOnClickListener {
+            uploadFile()
+        }
+        mTextViewShosUploads.setOnClickListener {
+
+        }
     }
+
+
+    private fun reload() {
+        auth.createUserWithEmailAndPassword("dhirajdafouti2020@gmail.com".trim(),
+            "Dhiraj@221115".trim()).addOnSuccessListener {
+            mButtonUpload.isEnabled = true
+            openFileChooser()
+        }.addOnFailureListener {
+            runOnUiThread {
+                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun uploadFile() {
+        val stringBuilder: StringBuilder = StringBuilder()
+        val value = stringBuilder.append(System.currentTimeMillis()).append(".")
+            .append(getFileExtension(imageUri))
+        val fileReference: StorageReference = mStorage.child(value.toString())
+        fileReference.putFile(imageUri).addOnSuccessListener {
+            runOnUiThread {
+                progressBar.progress = 0
+            }
+            val uploadDetails =
+                Upload(mEdittextFileName.text.toString().trim(), it.uploadSessionUri.toString())
+            val uploadId: String? = mDatabaseRef.push().key
+            uploadId?.let { upload ->
+                mDatabaseRef.child(upload).setValue(mEdittextFileName.text.toString()
+                    .trim() + it.uploadSessionUri.toString())
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this,
+                "Exception:Uploading Failed!!" + it.localizedMessage,
+                Toast.LENGTH_SHORT).show()
+        }.addOnProgressListener {
+            runOnUiThread {
+                val progress: Long = (100 * it.bytesTransferred / it.totalByteCount)
+                progressBar.progress = progress.toInt()
+            }
+
+        }
+    }
+
+    private fun getFileExtension(uri: Uri): String? {
+        val contentResolver: ContentResolver = contentResolver
+        val map: MimeTypeMap = MimeTypeMap.getSingleton()
+        return map.getMimeTypeFromExtension(contentResolver.getType(uri))
+    }
+
+    private fun openFileChooser() {
+        startForResult.launch("image/*")
+    }
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                imageUri = uri
+            }
+            Picasso.with(this).load(uri).into(mImageView)
+        }
 }
