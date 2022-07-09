@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app/basicfirebasestore" />
             <option value="$PROJECT_DIR$/app/realdatabaseapplication" />
+            <option value="$PROJECT_DIR$/app/realdb" />
           </set>
         </option>
       </GradleProjectSettings>

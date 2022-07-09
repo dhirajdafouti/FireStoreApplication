@@ -15,7 +15,7 @@ class RealDatabase : AppCompatActivity() {
     private lateinit var startname: EditText
     private lateinit var age: EditText
     private lateinit var button: Button
-    private lateinit var database:DatabaseReference
+    private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_real_database)
@@ -24,7 +24,7 @@ class RealDatabase : AppCompatActivity() {
         startname = findViewById(R.id.textView3)
         age = findViewById(R.id.textView4)
         button = findViewById(R.id.button2)
-        database=FirebaseDatabase.getInstance().reference.child("User")
+        database = FirebaseDatabase.getInstance().reference.child("User")
         button.setOnClickListener {
             updateRealDataBase()
         }
@@ -32,14 +32,13 @@ class RealDatabase : AppCompatActivity() {
     }
 
     private fun updateRealDataBase() {
-            val age1: String = age.text.toString()
-            val user: String = user.text.toString()
-            val id: String = id.text.toString()
-            val startName: String = startname.text.toString()
-            val user1 = User(user, id, startName, age1)
-            database.setValue(user1).addOnSuccessListener {
-
-            }
-
+        val age1: String = age.text.toString()
+        val user: String = user.text.toString()
+        val id: String = id.text.toString()
+        val startName: String = startname.text.toString()
+        val user1 = User(user, id, startName, age1)
+        for (i in 1..3) {
+            database.child(id).setValue(startName+age1+id)
+        }
     }
 }

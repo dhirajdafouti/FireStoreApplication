@@ -4,10 +4,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
 }
-configurations {
-    productiveDebugApi
-    productiveReleaseApi
-}
+
 android {
     compileSdk 32
 
@@ -22,11 +19,7 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug{
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -41,12 +34,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    flavorDimensions 'realtimedatabase'
-    productFlavors {
-        productive {
 
-        }
-    }
 }
 
 dependencies {
