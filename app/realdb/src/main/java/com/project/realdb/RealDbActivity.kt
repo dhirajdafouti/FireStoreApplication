@@ -63,7 +63,7 @@ class RealDbActivity : AppCompatActivity() {
         setContentView(R.layout.activity_real_db)
         mButtonChooseImage = findViewById(R.id.button_choose_image)
         mButtonUpload = findViewById(R.id.button_upload)
-        mButtonUpload.isEnabled = false
+        mButtonUpload.isEnabled = true
         mTextViewShosUploads = findViewById(R.id.text_view_show_uploads)
         mEdittextFileName = findViewById(R.id.edit_text_file_name)
         mImageView = findViewById(R.id.image_view)
@@ -88,9 +88,10 @@ class RealDbActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword("dhirajdafouti2020@gmail.com".trim(),
             "Dhiraj@221115".trim()).addOnSuccessListener {
             mButtonUpload.isEnabled = true
-            openFileChooser()
+
         }.addOnFailureListener {
             runOnUiThread {
+                openFileChooser()
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
             }
         }
@@ -98,8 +99,7 @@ class RealDbActivity : AppCompatActivity() {
 
     private fun uploadFile() {
         val stringBuilder: StringBuilder = StringBuilder()
-        val value = stringBuilder.append(System.currentTimeMillis()).append(".")
-            .append(getFileExtension(imageUri))
+        val value = stringBuilder.append(System.currentTimeMillis())
         val fileReference: StorageReference = mStorage.child(value.toString())
         fileReference.putFile(imageUri).addOnSuccessListener {
             runOnUiThread {
@@ -110,7 +110,7 @@ class RealDbActivity : AppCompatActivity() {
             val uploadId: String? = mDatabaseRef.push().key
             uploadId?.let { upload ->
                 mDatabaseRef.child(upload).setValue(mEdittextFileName.text.toString()
-                    .trim() + it.uploadSessionUri.toString())
+                    .trim())
             }
         }.addOnFailureListener {
             Toast.makeText(this,
