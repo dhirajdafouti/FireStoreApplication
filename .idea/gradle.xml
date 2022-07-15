@@ -12,6 +12,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app/FireBaseCoroutinesDemo" />
+            <option value="$PROJECT_DIR$/app/FireBasePhoneAuth" />
+            <option value="$PROJECT_DIR$/app/Shoppie" />
             <option value="$PROJECT_DIR$/app/basicfirebasestore" />
             <option value="$PROJECT_DIR$/app/realdatabaseapplication" />
             <option value="$PROJECT_DIR$/app/realdb" />
